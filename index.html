@@ -8,12 +8,15 @@
 
   <script>
     // API Endpoint URL
-    const apiUrl = 'http://54.236.51.158:1337/api/greetings'; 
+    const apiUrl = 'http://54.236.51.158:1337/api/greetings'; // Replace with your actual EC2 instance public IP
 
     // Function to fetch and display the message
     async function fetchMessage() {
       try {
         const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
         const data = await response.json();
         const message = data.data[0].attributes.message;
         document.getElementById('message-container').textContent = message;
